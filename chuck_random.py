@@ -1,0 +1,33 @@
+import requests
+
+class Test_new_joke():
+    """Create new joke"""
+    def __init__(self):
+        pass
+
+    def create_new_joke(self):
+        """Create random joke"""
+        url = 'https://api.chucknorris.io/jokes/random'
+        result = requests.request('get', url)
+        assert 200 == result.status_code
+        if result.status_code == 200:
+            print('Success')
+        else:
+            print('Failed')
+        result.encoding = 'utf-8'
+        print(result.text)
+        check = result.json()
+        check_info = check.get("categories")
+        print(check_info)
+        assert check_info == []
+        print('Category - OK')
+        check_value = check.get('value')
+        print(check_value)
+        name = 'Chuck'
+        if name in check_value:
+            print('Joke about Chuck')
+        else:
+            print('ERROR!!!!!!')
+
+random_joke = Test_new_joke()
+random_joke.create_new_joke()
